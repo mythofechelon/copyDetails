@@ -1,0 +1,49 @@
+*.*.* 	-	core.features.modifications/fixes
+
+-0.1.*-
+	• File/folder detail copying
+	
+-0.2.*-
+	• Path detail copying
+	
+-0.3.*-
+	• Drive letter detail copying
+	
+-1.3.*-
+	• Batch installer
+	
+-2.3.*- (actually started taking proper notes here)
+	• Proper installer
+	• 160 - 170: Fixed registry keys not being removed on uninstall
+	• 171, 172: Removed 24 unnecessary registry entries from install / uninstall process
+	• 173: Added Publisher and Publisher URL details to the Programs and Features entry
+	• 174: Added "Versions.txt" and "To Do.txt" files into installer
+	• 175 - 177: Name, publisher, and version installation variables
+	• 178: Fixed fileName.ext copying
+	• 179, 180: Added an appended "x64" to the output filename template
+	• 181, 182: CommandStore registry path installation variable
+	• 187: Renamed context menu entry from "Copy..." to "copyDetails..."
+	• 188: Added note to copyDetails.bat explaining structure
+	
+-3.3.*-
+	• Re-written in Pascal
+	• 223: Disabled GDB debugging for a smaller EXE
+	• 224 - 226: Consolidated installer and copying scripts' structure
+	• 233, 234: Removed 12 lines of unnecessary code from the copying script
+	• 235: Organised notes into "\Notes\" folder
+	
+-3.4.*-
+	• "fullPath", fullPath, "currentPath", currentPath for folders
+
+-4.4.* (2020/03/25)-
+	• Rewrote in Python.
+
+-4.5.* (2020/03/26)-
+	• Updated build process and installer to support both 32-bit and 64-bit.
+
+-4.6.* (2020/03/26)-
+	• Added option to install to local user profile so no admin permissions required.
+
+-4.6.* (2020/03/26)-
+	• Added options 'driveLetter:', '"folderName"', and '"fileName"'
+	• Made driver letter options available for all paths

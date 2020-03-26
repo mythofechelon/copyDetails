@@ -1,0 +1,9 @@
+-Features-		
+	• 
+	
+-Fix-
+	• Disable if more than one file is selected
+	• Reduce file size / increase speed
+	
+-Test-
+	• Uninstaller removing folders from Program Files
