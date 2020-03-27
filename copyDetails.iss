@@ -1,6 +1,6 @@
 ; Variables
 	#define MyAppName "copyDetails"
-	#define MyAppVersion "4.7.318"
+	#define MyAppVersion "4.8.356"
 	#define MyAppPublisher "mythofechelon"
 	#define MyAppURL "https://www.mythofechelon.co.uk/"
 

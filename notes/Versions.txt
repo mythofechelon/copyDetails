@@ -44,6 +44,9 @@
 -4.6.* (2020/03/26)-
 	• Added option to install to local user profile so no admin permissions required.
 
--4.6.* (2020/03/26)-
+-4.7.* (2020/03/26)-
 	• Added options 'driveLetter:', '"folderName"', and '"fileName"'
 	• Made driver letter options available for all paths
+
+-4.8.* (2020/03/27)-
+	• Added handling of up to 15 items
