@@ -1,6 +1,6 @@
 ; Variables
 	#define MyAppName "copyDetails"
-	#define MyAppVersion "4.8.356"
+	#define MyAppVersion "4.9.370"
 	#define MyAppPublisher "mythofechelon"
 	#define MyAppURL "https://www.mythofechelon.co.uk/"
 
@@ -213,3 +213,9 @@
 			
 			Root: HKA; Subkey: "SOFTWARE\Classes\*\Shell\copyDetails...\Shell\13.Ext"; ValueType: string; ValueData: " Ext"; 
 			Root: HKA; Subkey: "SOFTWARE\Classes\*\Shell\copyDetails...\Shell\13.Ext\command"; ValueType: string; ValueData: "{app}\copyDetails.exe -i ""%1"" -m Ext";
+			
+			; Insert seperator below
+			Root: HKA; Subkey: "SOFTWARE\Classes\*\Shell\copyDetails...\Shell\13.Ext"; ValueType: dword; ValueName: "CommandFlags"; ValueData: "$00000040";
+			
+			Root: HKA; Subkey: "SOFTWARE\Classes\*\Shell\copyDetails...\Shell\14.fileContents"; ValueType: string; ValueData: " fileContents"; 
+			Root: HKA; Subkey: "SOFTWARE\Classes\*\Shell\copyDetails...\Shell\14.fileContents\command"; ValueType: string; ValueData: "{app}\copyDetails.exe -i ""%1"" -m fileContents";

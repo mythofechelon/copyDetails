@@ -41,91 +41,116 @@ Arguments:
 					fileName_Ext
 					fileName_Ext_Quotes
 					Ext
+					
+					fileContents
 		''')
 	elif current_argument in ("-i", "--input"):
 		path_Original = current_value
 	elif current_argument in ("-m", "--mode"):
-		mode = current_value
+		mode_Element = current_value
 
-if ("path_Original" in locals() and "mode" in locals()):
+
+
+if ("path_Original" in locals() and "mode_Element" in locals()):
 	tempFile_Directory = tempfile.gettempdir()
 	tempFile_Path = tempFile_Directory + "\copyDetails_temp.txt"
-
-	time_tempFile_lastModified_Unix = os.path.getmtime(tempFile_Path)
-	time_tempFile_lastModified_Seconds = int(time_tempFile_lastModified_Unix)
-	time_Now = time.time()
-	time_Difference = time_Now - time_tempFile_lastModified_Seconds
 	
-	# print(time_Difference)
-	
-	if time_Difference > 1.5:
-		# Been longer than 1.5 seconds so probably not a sequential write, therefore overwrite
-		tempFile = open(tempFile_Path, "w") 
+	if (os.path.exists(tempFile_Path)):
+		time_tempFile_lastModified_Unix = os.path.getmtime(tempFile_Path)
+		time_tempFile_lastModified_Seconds = int(time_tempFile_lastModified_Unix)
+		time_Now = time.time()
+		time_Difference = time_Now - time_tempFile_lastModified_Seconds
+		
+		# print(time_Difference)
+		
+		if time_Difference > 1.5:
+			# Been longer than 1.5 seconds so probably not a sequential write, therefore overwrite
+			tempFile = open(tempFile_Path, "w") 
+		else:
+			tempFile = open(tempFile_Path, "a") 
+			tempFile.write("\n")
 	else:
-		tempFile = open(tempFile_Path, "a") 
-		tempFile.write("\n")
+		tempFile = open(tempFile_Path, "w")
 	
-	if mode == "fullPath":
+	
+	if mode_Element == "fullPath":
 		toWrite = path_Original
-		
-	elif mode == "fullPath_Quotes":
+		mode_Copy = "multi"
+	elif mode_Element == "fullPath_Quotes":
 		toWrite = '"' + path_Original + '"'
-		
-	elif mode == "fullPath_Backslash":
+		mode_Copy = "multi"
+	elif mode_Element == "fullPath_Backslash":
 		toWrite = path_Original + '\\'
-		
-	elif mode == "fullPath_Backslash_Quotes":
+		mode_Copy = "multi"
+	elif mode_Element == "fullPath_Backslash_Quotes":
 		toWrite = '"' + path_Original + '\\"'
-		
-	elif mode == "driveLetter":
+		mode_Copy = "multi"
+	elif mode_Element == "driveLetter":
 		toWrite = path_Original.rsplit(":",1)[0]
-		
-	elif mode == "driveLetter_Colon":
+		mode_Copy = "multi"
+	elif mode_Element == "driveLetter_Colon":
 		toWrite = path_Original.rsplit(":",1)[0] + ":"
-		
-	elif mode == "currentPath":
+		mode_Copy = "multi"
+	elif mode_Element == "currentPath":
 		toWrite = path_Original.rsplit("\\",1)[0]
-		
-	elif mode == "currentPath_Quotes":
+		mode_Copy = "multi"
+	elif mode_Element == "currentPath_Quotes":
 		toWrite = '"' + path_Original.rsplit("\\",1)[0] + '"'
-		
-	elif mode == "currentPath_Backslash":
+		mode_Copy = "multi"
+	elif mode_Element == "currentPath_Backslash":
 		toWrite = path_Original.rsplit("\\",1)[0] + "\\"
-		
-	elif mode == "currentPath_Backslash_Quotes":
+		mode_Copy = "multi"
+	elif mode_Element == "currentPath_Backslash_Quotes":
 		toWrite = '"' + path_Original.rsplit("\\",1)[0] + '\\"'
-		
-	elif mode == "folderName":
+		mode_Copy = "multi"
+	elif mode_Element == "folderName":
 		toWrite = path_Original.rsplit("\\",1)[1]
-		
-	elif mode == "folderName_Quotes":
+		mode_Copy = "multi"
+	elif mode_Element == "folderName_Quotes":
 		toWrite = '"' + path_Original.rsplit("\\",1)[1] + '"'
-		
-	elif mode == "fileName":
+		mode_Copy = "multi"
+	elif mode_Element == "fileName":
 		toWrite = path_Original.rsplit("\\",1)[1].rsplit(".",1)[0]
-		
-	elif mode == "fileName_Quotes":
+		mode_Copy = "multi"
+	elif mode_Element == "fileName_Quotes":
 		toWrite = '"' + path_Original.rsplit("\\",1)[1].rsplit(".",1)[0] + '"'
-		
-	elif mode == "fileName_Ext":
+		mode_Copy = "multi"
+	elif mode_Element == "fileName_Ext":
 		toWrite = path_Original.rsplit("\\",1)[1]
-		
-	elif mode == "fileName_Ext_Quotes":
+		mode_Copy = "multi"
+	elif mode_Element == "fileName_Ext_Quotes":
 		toWrite = '"' + path_Original.rsplit("\\",1)[1] + '"'
-		
-	elif mode == "Ext":
+		mode_Copy = "multi"
+	elif mode_Element == "Ext":
 		toWrite = path_Original.rsplit("\\",1)[1].rsplit(".",1)[1]
+		mode_Copy = "multi"
+	elif mode_Element == "fileContents":
+		targetFile = open(path_Original, "r") 
+		toWrite = targetFile.read()
+		targetFile.close()
 		
+		mode_Copy = "single"
 	else:
 		toWrite = ""
-		
-	tempFile.write(toWrite)
-	tempFile.close()
+		mode_Copy = "single"
+	
+	
+	
+	if mode_Copy == "single":
+		toCopy = toWrite
+	elif mode_Copy == "multi":
+		tempFile.write(toWrite)
+		tempFile.close()
 
-	tempFile = open(tempFile_Path, "r") 
-	toCopy = tempFile.read()
-	tempFile.close()
-
+		tempFile = open(tempFile_Path, "r") 
+		toCopy = tempFile.read()
+		tempFile.close()
+	else:
+		print("Copy mode not defined correctly. Exiting...")
+		sys.exit()
+	
+	
+	
 	pyperclip.copy(toCopy)
 	
 	# input() # Stop command window from closing in order to observe output
